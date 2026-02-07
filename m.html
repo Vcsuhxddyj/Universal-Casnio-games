@@ -1,0 +1,320 @@
+html
+
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Casino Gaming - The Online Casino in the World</title>
+    <style>
+        /* Same styles as before */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #1a1a1a, #333);
+            color: white;
+            text-align: center;
+        }
+        header {
+            background: #007bff;
+            padding: 20px;
+            font-size: 2em;
+        }
+        .images-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .image-item {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .image-item .info {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .image-item .info h4 {
+            color: #ffd700;
+            margin-top: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .promo {
+            margin-bottom: 30px;
+        }
+        .promo h2 {
+            color: #ffd700;
+        }
+        .promo p {
+            font-size: 1.2em;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+        .cta-button:hover {
+            background: #218838;
+        }
+        .admin-section {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .admin-section.show {
+            display: block;
+        }
+        .upload-item {
+            margin-bottom: 10px;
+        }
+        .upload-item input[type="text"] {
+            width: 70%;
+            padding: 5px;
+            margin-left: 10px;
+        }
+        #upload-button {
+            background: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #upload-button:hover {
+            background: #c82333;
+        }
+        .chat-section {
+            margin-top: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .chat-section h3 {
+            color: #ffd700;
+        }
+        #chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        #chat-input {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        #send-button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #send-button:hover {
+            background: #0056b3;
+        }
+        footer {
+            margin-top: 40px;
+            padding: 10px;
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Universal Casino Gaming
+    </header>
+    
+    <div class="images-container" id="images-container">
+        <!-- Images will be loaded from localStorage -->
+    </div>
+    
+    <div class="container">
+        <div class="promo">
+            <h2>Welcome to the Ultimate Online Casino Experience!</h2>
+            <p>Discover the world's premier online casino gaming platform. Play exciting games, win big prizes, and enjoy non-stop entertainment. Join our community on Facebook for the latest updates, tips, and exclusive offers!</p>
+            <a href="https://app.blackbox.ai/share/1917ec5d-9d0e-45a7-b8ff-0b29f71680a4" class="cta-button" target="_blank">Visit Our Facebook Page</a>
+        </div>
+        
+        <button id="admin-toggle">Admin Upload (For Owner Only)</button>
+        <div class="admin-section" id="admin-section">
+            <h3>Upload Casino Gaming Pictures with Info</h3>
+            <div id="upload-list"></div>
+            <input type="file" id="file-input" multiple accept="image/*">
+            <button id="add-descriptions">Add Descriptions</button>
+            <button id="upload-button">Upload and Add to Gallery</button>
+        </div>
+        
+        <div class="chat-section">
+            <h3>Chat with Us Directly</h3>
+            <p>Have questions or want to get started? Chat with us right here!</p>
+            <div id="chat-messages"></div>
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+    <footer>
+        &copy; 2023 Universal Casino Gaming. All rights reserved.
+    </footer>
+
+    <script>
+        // Existing chat functionality
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+
+        sendButton.addEventListener('click', function() {
+            const message = chatInput.value.trim();
+            if (message) {
+                const userMessage = document.createElement('p');
+                userMessage.textContent = 'You: ' + message;
+                chatMessages.appendChild(userMessage);
+                
+                setTimeout(() => {
+                    const response = document.createElement('p');
+                    response.textContent = 'Admin: Thanks for your message! We\'ll get back to you soon. For now, check out our Facebook page for more info.';
+                    chatMessages.appendChild(response);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+                
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+
+        // Admin upload and vertical display with localStorage (temporary) + debugging
+        const adminToggle = document.getElementById('admin-toggle');
+        const adminSection = document.getElementById('admin-section');
+        const fileInput = document.getElementById('file-input');
+        const addDescriptionsButton = document.getElementById('add-descriptions');
+        const uploadButton = document.getElementById('upload-button');
+        const uploadList = document.getElementById('upload-list');
+        const imagesContainer = document.getElementById('images-container');
+
+        // Load existing images from localStorage on page load
+        function loadImages() {
+            console.log('Loading images from localStorage...');
+            const storedImages = JSON.parse(localStorage.getItem('casinoImages') || '[]');
+            console.log('Stored images:', storedImages.length);
+            storedImages.forEach((imageData, index) => {
+                console.log('Loading image', index + 1, ':', imageData.name);
+                const imageItem = document.createElement('div');
+                imageItem.className = 'image-item';
+                imageItem.innerHTML = `
+                    <img src="${imageData.url}" alt="${imageData.name}">
+                    <div class="info">
+                        <h4>${imageData.name}</h4>
+                        <p>${imageData.desc}</p>
+                    </div>
+                `;
+                imagesContainer.appendChild(imageItem);
+            });
+            console.log('Images loaded successfully.');
+        }
+
+        loadImages(); // Load on page load
+
+        adminToggle.addEventListener('click', function() {
+            const password = prompt('Enter admin password:');
+            if (password === 'admin123') {
+                adminSection.classList.toggle('show');
+            } else {
+                alert('Incorrect password!');
+            }
+        });
+
+        addDescriptionsButton.addEventListener('click', function() {
+            const files = fileInput.files;
+            uploadList.innerHTML = '';
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.type.startsWith('image/')) {
+                    const item = document.createElement('div');
+                    item.className = 'upload-item';
+                    item.innerHTML = `<label>${file.name}:</label><input type="text" placeholder="Enter description for this image" data-index="${i}">`;
+                    uploadList.appendChild(item);
+                }
+            }
+        });
+
+        uploadButton.addEventListener('click', function() {
+            const files = fileInput.files;
+            const descriptions = document.querySelectorAll('#upload-list input[type="text"]');
+            if (files.length > 0 && descriptions.length === files.length) {
+                console.log('Starting upload for', files.length, 'files...');
+                const storedImages = JSON.parse(localStorage.getItem('casinoImages') || '[]');
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const desc = descriptions[i].value || 'No description provided.';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        console.log('File read for', file.name);
+                        const url = e.target.result;
+                        const imageData = { name: file.name, url: url, desc: desc };
+                        storedImages.push(imageData);
+                        localStorage.setItem('casinoImages', JSON.stringify(storedImages));
+                        console.log('Image saved to localStorage:', file.name);
+                        const imageItem = document.createElement('div');
+                        imageItem.className = 'image-item';
+                        imageItem.innerHTML = `
+                            <img src="${url}" alt="${file.name}">
+                            <div class="info">
+                                <h4>${file.name}</h4>
+                                <p>${desc}</p>
+                            </div>
+                        `;
+                        imagesContainer.appendChild(imageItem);
+                        console.log('Image added to page:', file.name);
+                    };
+                    reader.onerror = function() {
+                        console.error('Error reading file:', file.name);
+                    };
+                    reader.readAsDataURL(file);
+                }
+                fileInput.value = '';
+                uploadList.innerHTML = '';
+            } else {
+                alert('Please select images and add descriptions for each.');
+                console.warn('Upload failed: Missing files or descriptions.');
+            }
+        });
+    </script>
+</body>
+</html>
